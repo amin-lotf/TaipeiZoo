@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.example.taipeizooinfo.presentation.ui.main.MainFragment"
+        android:label="臺北市立動物園"
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_sectionDetailsFragment"
+            app:destination="@id/sectionDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/plantDetailsFragment"
+        android:name="com.example.taipeizooinfo.presentation.ui.plantdetails.PlantDetailsFragment"
+        android:label="Plant details"
+        tools:layout="@layout/fragment_plant_details" >
+        <argument
+            android:name="plantId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="plantName"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/sectionDetailsFragment"
+        android:name="com.example.taipeizooinfo.presentation.ui.sectiondetails.SectionDetailsFragment"
+        android:label=""
+        tools:layout="@layout/fragment_section_details" >
+        <action
+            android:id="@+id/action_sectionDetailsFragment_to_plantDetailsFragment"
+            app:destination="@id/plantDetailsFragment" />
+        <argument
+            android:name="sectionId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="sectionName"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_sectionDetailsFragment_to_webFragment"
+            app:destination="@id/webFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/webFragment"
+        android:name="com.example.taipeizooinfo.presentation.ui.web.WebFragment"
+        android:label="@string/app_name"
+        tools:layout="@layout/fragment_web" >
+        <argument
+            android:name="link"
+            app:argType="string"
+            app:nullable="true" />
+    </fragment>
+</navigation>

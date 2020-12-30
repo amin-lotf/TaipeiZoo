@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">臺北市立動物園</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="taipei_zoo">Taipei Zoo</string>
+    <string name="section_photo">Section Photo</string>
+    <string name="plant_photo">Plant Photo</string>
+    <string name="plant_alias">別名</string>
+    <string name="plant_intro">簡介</string>
+    <string name="plant_identification">辨認方式</string>
+    <string name="plant_functionality">辨認方式</string>
+    <string name="plant_update">最後更新 :</string>
+    <string name="section_image">Section Image</string>
+    <string name="section_link">在網頁開啟</string>
+    <string name="loading_image">Loading Image</string>
+</resources>

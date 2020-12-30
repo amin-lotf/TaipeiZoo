@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".presentation.ui.sectiondetails.SectionDetailsFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleGravity="top|center"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+            <ImageView
+                android:id="@+id/img_appbar"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:contentDescription="@string/plant_photo"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7"
+                tools:src="@drawable/taipei_zoo" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_alignBottom="@id/img_appbar"
+                android:layout_gravity="top"
+                android:background="@drawable/scrim_top" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                android:layout_alignBottom="@id/img_appbar"
+                android:layout_gravity="bottom"
+                android:background="@drawable/scrim_bottom" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.5">
+
+                <TextView
+                    android:id="@+id/txt_name_ch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6"
+
+                    android:textColor="@color/white"
+                    tools:text="臺灣動物" />
+
+                <TextView
+                    android:id="@+id/txt_name_en"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="4dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="8dp"
+                    android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    tools:text="Subcostate" />
+            </LinearLayout>
+
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/toolbar_height"
+                app:layout_collapseMode="pin"
+                app:navigationIcon="@drawable/ic_back" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/layout_nested"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_constraint"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="invisible">
+
+            <TextView
+                android:id="@+id/lbl_alias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/plant_alias"
+                android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/font_title_dark"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_alias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/font_body_dark"
+                app:layout_constraintTop_toBottomOf="@id/lbl_alias"
+                tools:text="別名" />
+
+            <TextView
+                android:id="@+id/lbl_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/plant_intro"
+                android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6"
+
+                android:textColor="@color/font_title_dark"
+                app:layout_constraintTop_toBottomOf="@id/txt_alias" />
+
+            <TextView
+                android:id="@+id/txt_intro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/font_body_dark"
+                app:layout_constraintTop_toBottomOf="@id/lbl_intro"
+                tools:text="別名" />
+
+            <TextView
+                android:id="@+id/lbl_identification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/plant_identification"
+                android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6"
+
+                android:textColor="@color/font_title_dark"
+                app:layout_constraintTop_toBottomOf="@id/txt_intro" />
+
+            <TextView
+                android:id="@+id/txt_identification"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/font_body_dark"
+                app:layout_constraintTop_toBottomOf="@id/lbl_identification"
+                tools:text="別名" />
+
+            <TextView
+                android:id="@+id/lbl_func"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/plant_functionality"
+                android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/font_title_dark"
+                app:layout_constraintTop_toBottomOf="@id/txt_identification" />
+
+            <TextView
+                android:id="@+id/txt_func"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/font_body_dark"
+                app:layout_constraintTop_toBottomOf="@id/lbl_func"
+                tools:text="別名" />
+
+            <TextView
+                android:id="@+id/lbl_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/plant_update"
+                android:textAppearance="@style/Base.TextAppearance.MaterialComponents.Headline6"
+                android:textColor="@color/font_title_dark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_func" />
+
+            <TextView
+                android:id="@+id/txt_update"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="8dp"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                android:textColor="@color/font_body_dark"
+                app:layout_constraintBottom_toBottomOf="@id/lbl_update"
+                app:layout_constraintStart_toEndOf="@id/lbl_update"
+                app:layout_constraintTop_toTopOf="@id/lbl_update"
+                tools:text="2017/01/01" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
