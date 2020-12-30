@@ -23,7 +23,7 @@ class PlantRemoteMediator(
     private val plantEntityMapper: PlantEntityMapper
 ) : RemoteMediator<Int, PlantEntity>() {
 
-    private val TAG="aminjoon"
+
 
     override suspend fun load(
         loadType: LoadType,
@@ -95,7 +95,6 @@ class PlantRemoteMediator(
             }
 
         } catch (throwable: Throwable) {
-            Log.d(TAG, "load: Error")
             throwable.printStackTrace()
             return MediatorResult.Error(throwable)
         }

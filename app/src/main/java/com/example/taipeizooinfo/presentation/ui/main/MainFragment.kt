@@ -19,31 +19,27 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainFragment : BaseFragment(R.layout.fragment_main) {
 
-    private val TAG = "Aminjoon"
 
     val viewModel by viewModels<MainFragmentViewModel>()
 
     @Inject
     lateinit var sectionsAdapter: SectionsAdapter
 
-
-
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
         get() = _binding!!
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMainBinding.bind(view)
-        binding.collapsingToolbar.title=getString(R.string.app_name)
+        binding.collapsingToolbar.title = getString(R.string.app_name)
 
         setupAdapter()
         setupObservers()
 
         binding.layoutRefresh.setOnRefreshListener {
             sectionsAdapter.refresh()
-            binding.layoutRefresh.isRefreshing=false
+            binding.layoutRefresh.isRefreshing = false
         }
 
     }
@@ -61,7 +57,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     }
 
     private fun setupAdapter() {
-        sectionsAdapter.addItemListener(object:RecyclerItemListener{
+        sectionsAdapter.addItemListener(object : RecyclerItemListener {
             override fun onItemClicked(itemId: Long, itemName: String?) {
                 val action = MainFragmentDirections
                     .actionMainFragmentToSectionDetailsFragment(
@@ -71,9 +67,6 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
                 findNavController().navigate(action)
             }
         })
-
-
-
         sectionsAdapter.let { adapter ->
             binding.recyclerSections.apply {
                 layoutManager =
@@ -88,10 +81,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         }
 
         sectionsAdapter.addLoadStateListener { loadState ->
-
             binding.progressBar.isVisible = loadState.source.refresh is LoadState.Loading
-
-
             val errorState = loadState.source.append as? LoadState.Error
                 ?: loadState.source.prepend as? LoadState.Error
                 ?: loadState.append as? LoadState.Error
@@ -99,12 +89,8 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
                 ?: loadState.refresh as? LoadState.Error
                 ?: loadState.source.refresh as? LoadState.Error
 
-
-            viewModel.showErrorMessage(errorState!=null)
-
+            viewModel.showErrorMessage(errorState != null)
         }
-
-
     }
 
     override fun onDestroy() {

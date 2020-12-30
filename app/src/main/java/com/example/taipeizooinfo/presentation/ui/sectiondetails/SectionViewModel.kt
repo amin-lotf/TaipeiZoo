@@ -1,11 +1,9 @@
 package com.example.taipeizooinfo.presentation.ui.sectiondetails
 
 import android.util.Log
+import androidx.hilt.Assisted
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.taipeizooinfo.presentation.model.Plant
@@ -20,11 +18,8 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class SectionViewModel @ViewModelInject constructor(
-    private val repository: ZooRepository
+    private val repository: ZooRepository,
 ) : BaseViewModel() {
-
-    private val TAG = "aminjoon"
-
 
     private val _sectionId = MutableSharedFlow<Long>(
         replay = 1,
@@ -69,13 +64,11 @@ class SectionViewModel @ViewModelInject constructor(
                    showErrorMessage(true)
                 }
                 .collect { pagingData ->
-                    Log.d(TAG, "call section name: ")
                     _plants.postValue(pagingData)
                 }
         }
 
     }
-
 
     fun getSectionDetails(sectionId: Long, sectionName: String?) {
         if (sectionId != 0L) {
@@ -85,6 +78,4 @@ class SectionViewModel @ViewModelInject constructor(
             _sectionName.tryEmit(it)
         }
     }
-
-
 }

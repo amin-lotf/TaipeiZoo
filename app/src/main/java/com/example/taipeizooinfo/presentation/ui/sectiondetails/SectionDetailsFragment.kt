@@ -23,30 +23,23 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class SectionDetailsFragment : BaseFragment(R.layout.fragment_section_details) {
 
-    private val TAG = "aminjoon"
-    private val viewModel by viewModels<SectionViewModel>()
-
-    private val args: SectionDetailsFragmentArgs by navArgs()
-
     @Inject
-    lateinit var plantsAdapter:PlantsAdapter
+    lateinit var plantsAdapter: PlantsAdapter
 
     @Inject
     lateinit var glideManager: GlideManager
 
-
+    private val viewModel by viewModels<SectionViewModel>()
+    private val args: SectionDetailsFragmentArgs by navArgs()
     private var _binding: FragmentSectionDetailsBinding? = null
     private val binding: FragmentSectionDetailsBinding
         get() = _binding!!
-
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentSectionDetailsBinding.bind(view)
 
-
-        ViewCompat.setTransitionName(binding.imgAppbar,"detail_view")
+        ViewCompat.setTransitionName(binding.imgAppbar, "detail_view")
 
         val sectionId = args.sectionId
         val sectionName = args.sectionName
@@ -55,7 +48,6 @@ class SectionDetailsFragment : BaseFragment(R.layout.fragment_section_details) {
         viewModel.getSectionDetails(sectionId, sectionName)
         subscribeObservers()
         setupPlantsAdapter()
-
 
         binding.layoutSwipe.setOnRefreshListener {
             viewModel.getSectionDetails(sectionId, sectionName)
@@ -74,7 +66,6 @@ class SectionDetailsFragment : BaseFragment(R.layout.fragment_section_details) {
                     findNavController().popBackStack()
                 }
             }
-
         }
     }
 
@@ -88,22 +79,19 @@ class SectionDetailsFragment : BaseFragment(R.layout.fragment_section_details) {
 
 
     private fun setupPlantsAdapter() {
-
-        plantsAdapter.addItemListener(object: RecyclerItemListener{
+        plantsAdapter.addItemListener(object : RecyclerItemListener {
             override fun onItemClicked(itemId: Long, itemName: String?) {
-                    val action = SectionDetailsFragmentDirections
-                        .actionSectionDetailsFragmentToPlantDetailsFragment(
-                            plantId = itemId,
-                            plantName = itemName
-                        )
-                    findNavController().navigate(action)
+                val action = SectionDetailsFragmentDirections
+                    .actionSectionDetailsFragmentToPlantDetailsFragment(
+                        plantId = itemId,
+                        plantName = itemName
+                    )
+                findNavController().navigate(action)
             }
-
         })
 
         binding.recyclerPlants.apply {
             isNestedScrollingEnabled = true
-
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             setHasFixedSize(true)
@@ -125,7 +113,6 @@ class SectionDetailsFragment : BaseFragment(R.layout.fragment_section_details) {
         }
 
         viewModel.plants.observe(viewLifecycleOwner) {
-
             plantsAdapter.submitData(viewLifecycleOwner.lifecycle, it)
         }
 
@@ -134,7 +121,7 @@ class SectionDetailsFragment : BaseFragment(R.layout.fragment_section_details) {
 
     private fun showSectionDetails(section: Section) {
         binding.apply {
-            glideManager.setImage(section.picUrl,imgAppbar)
+            glideManager.setImage(section.picUrl, imgAppbar)
             binding.txtSectionInfo.text = section.info
             binding.txtSectionMemo.text = section.memo
         }

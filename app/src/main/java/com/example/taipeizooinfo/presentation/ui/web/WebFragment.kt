@@ -20,17 +20,14 @@ import dagger.hilt.android.AndroidEntryPoint
 class WebFragment : Fragment(R.layout.fragment_web) {
 
     private val args:WebFragmentArgs by navArgs()
-
     private var _binding:FragmentWebBinding?=null
     private val binding:FragmentWebBinding
     get() = _binding!!
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding= FragmentWebBinding.bind(view)
         val link=args.link
-        Log.d("aminjoon", "onViewCreated: $link")
         link?.let {
             binding.webView.apply {
                 settings.javaScriptEnabled=true

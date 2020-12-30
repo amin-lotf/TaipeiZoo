@@ -24,7 +24,7 @@ class SectionRemoteMediator(
     private val sectionEntityMapper: SectionEntityMapper
 ) : RemoteMediator<Int, SectionEntity>() {
 
-    private val TAG="aminjoon"
+
 
     override suspend fun load(
         loadType: LoadType,
@@ -95,7 +95,6 @@ class SectionRemoteMediator(
             }
 
         } catch (throwable: Throwable) {
-            Log.d(TAG, "load: Error")
             throwable.printStackTrace()
             return MediatorResult.Error(throwable)
         }

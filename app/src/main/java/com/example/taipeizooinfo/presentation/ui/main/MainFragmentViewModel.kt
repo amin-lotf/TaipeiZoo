@@ -15,27 +15,25 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
-
 @OptIn(FlowPreview::class)
 class MainFragmentViewModel @ViewModelInject constructor(
     private val repository: ZooRepository,
 ) : BaseViewModel() {
-    private val TAG = "aminjoon"
+
     private val _sections = MutableLiveData<PagingData<Section>>()
 
     val sections: LiveData<PagingData<Section>>
         get() = _sections
-
 
     init {
         viewModelScope.launch {
             repository.getZooSections()
                 .cachedIn(viewModelScope)
                 .debounce(1000) //To avoid multiple refresh requests in short time
-                .onCompletion {exception->
+                .onCompletion { exception ->
                     exception?.printStackTrace()
-                    showErrorMessage(exception!=null)
-                }.catch { exception->
+                    showErrorMessage(exception != null)
+                }.catch { exception ->
                     exception.printStackTrace()
                     showErrorMessage(true)
                 }
@@ -44,8 +42,5 @@ class MainFragmentViewModel @ViewModelInject constructor(
                 }
         }
     }
-
-
-
 
 }

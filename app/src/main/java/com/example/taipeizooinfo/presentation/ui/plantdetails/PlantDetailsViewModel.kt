@@ -38,12 +38,9 @@ class PlantDetailsViewModel @ViewModelInject constructor(
         }
     }
 
-
     fun getPlantDetails(plantId:Long){
         if (plantId!=0L){
             _plantId.tryEmit(plantId)
         }
     }
-
-
 }

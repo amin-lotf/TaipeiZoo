@@ -14,62 +14,55 @@ import javax.inject.Inject
 
 class PlantsAdapter @Inject constructor(
     private val glideManager: GlideManager
-): PagingDataAdapter<Plant,PlantsAdapter.ViewHolder>(diffUtil) {
+) : PagingDataAdapter<Plant, PlantsAdapter.ViewHolder>(diffUtil) {
 
-    private var _listener:RecyclerItemListener?=null
-
-    private val TAG="aminjoon"
+    private var _listener: RecyclerItemListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-       val binding=PlantItemBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val binding = PlantItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ViewHolder(binding)
     }
 
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-       val plant=getItem(position)
-       plant?.let {
-           holder.bind(it)
-       }
-    }
-
-    fun addItemListener(listener:RecyclerItemListener){
-        _listener=listener
-    }
-
-
-    inner class ViewHolder(private val binding:PlantItemBinding) : RecyclerView.ViewHolder(binding.root){
-
-        fun bind(plant:Plant){
-
-            binding.apply {
-                glideManager.setImage(plant.pic01URL,binding.imgPlant)
-            }
-
-            binding.txtChName.text=plant.nameCh
-            binding.txtKnown.text=plant.alsoKnown
-
-            binding.root.setOnClickListener {
-
-                _listener?.onItemClicked(plant.id,plant.nameCh)
-            }
-
+        val plant = getItem(position)
+        plant?.let {
+            holder.bind(it)
         }
     }
 
-    companion object{
-        private val diffUtil=object:DiffUtil.ItemCallback<Plant>(){
+    fun addItemListener(listener: RecyclerItemListener) {
+        _listener = listener
+    }
+
+
+    inner class ViewHolder(private val binding: PlantItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(plant: Plant) {
+            binding.apply {
+                glideManager.setImage(plant.pic01URL, binding.imgPlant)
+            }
+
+            binding.txtChName.text = plant.nameCh
+            binding.txtKnown.text = plant.alsoKnown
+
+            binding.root.setOnClickListener {
+                _listener?.onItemClicked(plant.id, plant.nameCh)
+            }
+        }
+    }
+
+    companion object {
+        private val diffUtil = object : DiffUtil.ItemCallback<Plant>() {
             override fun areItemsTheSame(oldItem: Plant, newItem: Plant): Boolean {
-                return oldItem==newItem
+                return oldItem == newItem
             }
 
             override fun areContentsTheSame(oldItem: Plant, newItem: Plant): Boolean {
-                return oldItem==newItem
+                return oldItem == newItem
             }
         }
     }
-
 
 
 }

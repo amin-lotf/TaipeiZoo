@@ -20,10 +20,6 @@ class ZooRepositoryImp @Inject constructor(
     private val database: TaipeiZooDatabase,
     private val zooApi: ZooApi
 ) : ZooRepository {
-
-    private val TAG = "aminjoon"
-
-
     override fun getZooSections() = Pager(
         config = PagingConfig(
             pageSize = PAGE_LIMIT,
@@ -76,7 +72,6 @@ class ZooRepositoryImp @Inject constructor(
                 )
         )
     }
-
 
     override suspend fun getPlantDetails(id: Long): DataState<Plant> {
         val plantEntity = database.getPlantDao().selectPlant(id)

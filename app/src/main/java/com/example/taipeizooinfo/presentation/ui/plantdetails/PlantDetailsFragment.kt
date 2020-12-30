@@ -20,26 +20,24 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class PlantDetailsFragment : BaseFragment(R.layout.fragment_plant_details) {
 
-    private var _binding:FragmentPlantDetailsBinding?=null
-
-    private val viewModel by  viewModels<PlantDetailsViewModel>()
-
-    private val args:PlantDetailsFragmentArgs by navArgs()
+    private var _binding: FragmentPlantDetailsBinding? = null
+    private val viewModel by viewModels<PlantDetailsViewModel>()
+    private val args: PlantDetailsFragmentArgs by navArgs()
 
     @Inject
     lateinit var glideManager: GlideManager
 
-    private val binding:FragmentPlantDetailsBinding
-    get() = _binding!!
+    private val binding: FragmentPlantDetailsBinding
+        get() = _binding!!
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding= FragmentPlantDetailsBinding.bind(view)
+        _binding = FragmentPlantDetailsBinding.bind(view)
         viewModel.getPlantDetails(plantId = args.plantId)
 
-        val plantName=args.plantName
+        val plantName = args.plantName
         plantName?.let {
-           showTitle(it)
+            showTitle(it)
         }
         setupToolbar()
         subscribeObservers()
@@ -52,21 +50,20 @@ class PlantDetailsFragment : BaseFragment(R.layout.fragment_plant_details) {
     }
 
     private fun showTitle(plantName: String) {
-        var isShow=true
-        var scrollRange= -1
+        var isShow = true
+        var scrollRange = -1
 
         binding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (scrollRange== -1){
-                scrollRange=appBarLayout.totalScrollRange
+            if (scrollRange == -1) {
+                scrollRange = appBarLayout.totalScrollRange
             }
-            if (scrollRange+verticalOffset==0){
-                binding.collapsingToolbar.title=plantName
-                isShow=true
-            }else if(isShow){
-                binding.collapsingToolbar.title=" "
-                isShow=false
+            if (scrollRange + verticalOffset == 0) {
+                binding.collapsingToolbar.title = plantName
+                isShow = true
+            } else if (isShow) {
+                binding.collapsingToolbar.title = " "
+                isShow = false
             }
-
 
 
         })
@@ -74,11 +71,11 @@ class PlantDetailsFragment : BaseFragment(R.layout.fragment_plant_details) {
     }
 
     private fun subscribeObservers() {
-        viewModel.plantDetails.observe(viewLifecycleOwner){dataState->
-            when(dataState){
+        viewModel.plantDetails.observe(viewLifecycleOwner) { dataState ->
+            when (dataState) {
                 is DataState.Success -> {
                     showPlantDetails(
-                       plant =  dataState.data
+                        plant = dataState.data
                     )
                 }
                 is DataState.Failed -> viewModel.showErrorMessage(true)
@@ -87,29 +84,27 @@ class PlantDetailsFragment : BaseFragment(R.layout.fragment_plant_details) {
     }
 
     private fun showPlantDetails(plant: Plant) {
-        binding.layoutConstraint.isVisible=true
+        binding.layoutConstraint.isVisible = true
         binding.apply {
-            glideManager.setImage(plant.pic01URL?:plant.pic02URL?:plant.pic03URL,imgAppbar)
-            txtNameCh.text=plant.nameCh
-            txtNameEn.text=plant.nameLatin
-            txtAlias.text=plant.alsoKnown
-            txtIntro.text=plant.brief
-            txtIdentification.text=plant.feature
-            txtFunc.text=plant.functionApplication
-            txtUpdate.text=plant.update
+            glideManager.setImage(plant.pic01URL ?: plant.pic02URL ?: plant.pic03URL, imgAppbar)
+            txtNameCh.text = plant.nameCh
+            txtNameEn.text = plant.nameLatin
+            txtAlias.text = plant.alsoKnown
+            txtIntro.text = plant.brief
+            txtIdentification.text = plant.feature
+            txtFunc.text = plant.functionApplication
+            txtUpdate.text = plant.update
         }
     }
 
-
     override fun subscribeErrorObserver() {
-        viewModel.errorState.observe(viewLifecycleOwner){
+        viewModel.errorState.observe(viewLifecycleOwner) {
             onErrorReceived(it)
         }
     }
 
-
     override fun onDestroy() {
         super.onDestroy()
-        _binding=null
+        _binding = null
     }
 }
