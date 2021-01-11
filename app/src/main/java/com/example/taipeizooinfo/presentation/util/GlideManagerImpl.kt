@@ -12,7 +12,7 @@ class GlideManagerImpl(
         requestManager
             .load(imageUrl)
             .fitCenter()
-            .transition(DrawableTransitionOptions.withCrossFade())
+            .transition(DrawableTransitionOptions.with(DrawableAlwaysCrossFadeFactory()))
             .error(R.drawable.taipei_zoo)
             .into(imageView)
     }
