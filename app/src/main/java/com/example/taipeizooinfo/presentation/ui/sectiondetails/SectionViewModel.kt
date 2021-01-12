@@ -16,6 +16,8 @@ import kotlinx.coroutines.channels.BufferOverflow
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
+
+
 @OptIn(ExperimentalCoroutinesApi::class)
 class SectionViewModel @ViewModelInject constructor(
     private val repository: ZooRepository,
@@ -43,6 +45,7 @@ class SectionViewModel @ViewModelInject constructor(
 
         viewModelScope.launch {
             _sectionId
+                .distinctUntilChanged()
                 .collect { id ->
                     _sectionDetails.postValue(
                         repository.getSectionDetails(id)
@@ -52,6 +55,7 @@ class SectionViewModel @ViewModelInject constructor(
 
         viewModelScope.launch {
             _sectionName
+                .distinctUntilChanged()
                 .flatMapLatest { forSection ->
                     repository
                         .getZooPlants(forSection)
@@ -71,6 +75,7 @@ class SectionViewModel @ViewModelInject constructor(
     }
 
     fun getSectionDetails(sectionId: Long, sectionName: String?) {
+
         if (sectionId != 0L) {
             _sectionId.tryEmit(sectionId)
         }
